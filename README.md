@@ -1,30 +1,33 @@
 # Parallel-Floyd-Warshall
 
-For this assignment you will write a parallel all pairs shortest paths 
-algorithm using the Floyd Warshall algorithm. The program will traverse 
-an adjacency matrix and determine the shortest path between each pair 
-of nodes. You should have functions for determining the starting and 
-stopping row for a particular process. 
+This program creates a matrix out of each file; 'fwTestResult' and 'fwTestResult'
+respectively. Which then applies the Floyd Warshall algorithm using parallelized
+processes. I included a version of the algorithm using only one process in
+the file, 'serialized.py', which does not use parallelized processes. The file
+that does contain the parallelized version is in the file 'parallel.py'.
 
-https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
+## How to run the programs
 
-fwTest.txt is an example input matrix, the result matrix is fwTestResult.txt
+For the version that only uses one process can be ran with the following command:
 
-Hints: 
+'python3 serialized.py'
 
-* It may be easier to load the files containing text before entering the processing region 
-* You will have to work out how to break apart the work, otherwise each mpi program will be performing duplicate work 
-* Ideally the rows are split between threads, for example if there are 4 rows and 2 threads thread 0 gets rows 1 and 2 and thread 2 gets 3 and 4
-* Example of a serial floyd warshall https://www-m9.ma.tum.de/graph-algorithms/spp-floyd-warshall/index_en.html
+For the version that uses multiple processes, it can be ran with the following
+command:
 
-## Requirements 
+'mpiexec -n X python3 -m mpi4py parallel.py'
 
-The code should use reasonable decomposition, use reasonable variable names,
-and should generally follow good coding standards. 
-Important, your assignment should include your name. 
+Where 'X' is the number of processes you choose to run the program with.
 
-The program shall use the floyd warshal algorithm 
-The program shall use mpi to do the work in parallel 
-The program shall use an adjacency matrix 
-The program shall split work among multiple mpi processes 
-The program shall display a portion of the input and final matrices 
+## Results
+
+Using the 'parallel.py' file the following results yield their respective timed
+results:
+
+'mpiexec -n 1 python3 -m mpi4py parallel.py' averages at around .68 seconds
+
+'mpiexec -n 2 python3 -m mpi4py parallel.py' averages at around .35 seconds
+
+'mpiexec -n 4 python3 -m mpi4py parallel.py' averages at around .18 seconds
+
+'mpiexec -n 8 python3 -m mpi4py parallel.py' time for this was indefinite
